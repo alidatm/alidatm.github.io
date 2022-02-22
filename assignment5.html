@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Alida's HCDE 439 Physical Computing Page!</title> 
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head> 
+    <body> 
+
+        <div class="header">
+            <h1>Assignment 5: Libraries!</h1>
+            <p>
+            <img src="IMG_5381.jpg" width=600></a>
+            </p>
+            <p>
+            In this project, I used the humidity sensor with the transistor to turn the LED lights on and off above and
+            below a certain temperature. However, unfortunately through the process I ended up accidentally frying my arudino board and humidity sensor when
+            trying to readjust and shift wires. Throughout I used 220 Ohms resistors and 1000k resistor to counteract voltage.
+            </p>
+            <img src="a5.jpeg" width=400></a>
+            </p>
+            <pre>
+                
+                #define dht_apin A0 // Analog Pin sensor is connected to
+
+                const int transistorPin = 9;
+
+                dht DHT;
+                
+                void setup(){
+                
+                Serial.begin(9600);
+                delay(500);//Delay to let system boot
+                Serial.println("DHT11 Humidity & temperature Sensor\n\n");
+                delay(1000);//Wait before accessing Sensor
+                
+                }//end "setup()"
+                
+                void loop(){
+                //Start of Program 
+                
+                    DHT.read11(dht_apin);
+                    
+                    Serial.print("Current humidity = ");
+                    Serial.print(DHT.humidity);
+                    Serial.print("%  ");
+                    Serial.print("temperature = ");
+                    int F = ((DHT.temperature * 9.0 ) / 5.0 + 32);
+                    Serial.print(F); 
+                    Serial.println("F  ");
+                    
+                    delay(2000);//Wait 2 seconds before accessing sensor again.
+                
+                //Fastest should be once every two seconds.
+
+                if (F < 70)
+                    analogWrite(9, 0);
+                else if (F > 70)
+                    analogWrite(9, 255);
+                }// end loop()
+            </pre>
+            <p>
+                <IMG SRC="a5.gif">
+            </p>
+        </div>
+        
+    </body>
+</html>
